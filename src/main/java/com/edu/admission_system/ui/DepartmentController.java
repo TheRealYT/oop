@@ -49,7 +49,7 @@ public class DepartmentController extends StageController {
         selectDept.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
             if (newValue == null) return;
 
-            programs = Program.getAll(manager.getUniversity().getId());
+            programs = Program.getAll();
 
             Map<String, Integer> oldPrograms = Program.getAll(deps.get(newValue), manager.getUniversity().getId());
             oldPrograms.forEach((name, id) -> {

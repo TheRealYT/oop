@@ -53,6 +53,26 @@ public class Program {
         return programs;
     }
 
+    public static Map<String, Integer> getAll() {
+        Map<String, Integer> programs = new HashMap<>();
+        PreparedStatement stmt = DB.stmt("SELECT name, id AS programId FROM program");
+        try {
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                programs.put(resultSet.getString("name"), resultSet.getInt("programId"));
+            }
+
+            resultSet.close();
+            stmt.close();
+            DB.close();
+        } catch (SQLException e) {
+            DB.handleSqlException(e);
+        }
+
+        return programs;
+    }
+
     public static Map<String, Integer> getAll(int depId, int universityId) {
         Map<String, Integer> programs = new HashMap<>();
         PreparedStatement stmt = DB.stmt("SELECT name, programId FROM program, university_program, university_department WHERE departmentId=? AND universityId=? AND university_depId=university_department.id AND program.id=university_program.programId");

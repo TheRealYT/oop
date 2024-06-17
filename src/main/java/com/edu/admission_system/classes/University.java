@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class University implements IDepartmentListing {
     private int id;
@@ -36,6 +38,27 @@ public class University implements IDepartmentListing {
         } catch (SQLException e) {
             DB.handleSqlException(e);
         }
+    }
+
+    public static Map<String, Integer> getByDept(int depId) {
+        PreparedStatement stmt = DB.stmt("SELECT university.id AS uId, university.name AS uName FROM department, university_department, university WHERE department.id=? AND departmentId=department.id AND university.id=university_department.universityId");
+        Map<String, Integer> universityDeps = new HashMap<>();
+
+        try {
+            stmt.setInt(1, depId);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                universityDeps.put(resultSet.getString("uName"), resultSet.getInt("uId"));
+            }
+
+            resultSet.close();
+            stmt.close();
+            DB.close();
+        } catch (SQLException e) {
+            DB.handleSqlException(e);
+        }
+
+        return universityDeps;
     }
 
     public int getId() {

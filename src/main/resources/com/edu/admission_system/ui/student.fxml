@@ -20,42 +20,40 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
         </HBox>
-      <HBox alignment="CENTER_LEFT">
-         <children>
-              <VBox>
-                  <children>
-                      <Label fx:id="txtName" text="Abebe Kebede">
-                          <font>
-                              <Font size="18.0" />
-                          </font>
-                          <VBox.margin>
-                              <Insets />
-                          </VBox.margin>
-                      </Label>
-                      <Label fx:id="txtStudy" text="Information Systems • Addis Ababa University">
-                          <VBox.margin>
-                              <Insets />
-                          </VBox.margin>
-                      </Label>
-                  </children>
-                  <padding>
-                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                  </padding>
-              </VBox>
-            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-               <children>
-                  <Button fx:id="btnTransfer" mnemonicParsing="false" text="Request Transfer" />
-                  <Button fx:id="btnApply" layoutX="262.0" layoutY="30.0" mnemonicParsing="false" text="Apply Now">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <padding>
-                  <Insets right="10.0" />
-               </padding>
-            </HBox>
-         </children>
-      </HBox>
+        <HBox alignment="CENTER_LEFT">
+            <children>
+                <VBox>
+                    <children>
+                        <Label fx:id="txtName" text="Abebe Kebede">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Label>
+                        <Label fx:id="txtStudy" text="Information Systems • Addis Ababa University">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Label>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </VBox>
+                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                    <padding>
+                        <Insets right="10.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </HBox>
+        <Label fx:id="caption" text="Found">
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" />
+            </VBox.margin>
+        </Label>
+        <Accordion fx:id="uList" />
     </children>
 </VBox>
