@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edu.admission_system.ui.RegisterController">
+    <children>
+        <VBox HBox.hgrow="ALWAYS">
+            <children>
+                <Label text="Register">
+                    <font>
+                        <Font size="22.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="5.0" />
+                    </VBox.margin>
+                </Label>
+                <Separator maxWidth="30.0">
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </Separator>
+                <Label text="Full Name" />
+                <TextField fx:id="txtFullName" prefHeight="25.0" promptText="Abebe Kebede Abebe" />
+            <Label layoutX="35.0" layoutY="85.0" text="EUEE">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></Label>
+            <TextField fx:id="txtEUEE" layoutX="35.0" layoutY="102.0" prefHeight="25.0" promptText="699" />
+                <Label text="Filed Of Study">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </Label>
+                <ComboBox fx:id="fieldOfStudy" prefHeight="25.0" prefWidth="200.0" promptText="Select Your Field Of Study" />
+                <ImageView fx:id="imgProfile" fitHeight="100.0" fitWidth="200.0" onMouseClicked="#preview" pickOnBounds="true">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </ImageView>
+                <Button fx:id="btnProfile" mnemonicParsing="false" onAction="#uploadProfile" prefHeight="25.0" prefWidth="200.0" text="Upload Photo" />
+                <ImageView fx:id="imgDoc" fitHeight="100.0" fitWidth="200.0" layoutX="10.0" layoutY="126.0" onMouseClicked="#preview" pickOnBounds="true">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </ImageView>
+                <Button fx:id="btnDoc" mnemonicParsing="false" onAction="#uploadTranscript" prefHeight="25.0" prefWidth="200.0" text="Upload Transcript" />
+            </children>
+            <padding>
+                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+            </padding>
+        </VBox>
+        <Separator orientation="VERTICAL">
+            <HBox.margin>
+                <Insets bottom="50.0" top="50.0" />
+            </HBox.margin>
+        </Separator>
+        <VBox HBox.hgrow="ALWAYS">
+            <children>
+                <Label text="Account Information">
+                    <font>
+                        <Font size="22.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="5.0" />
+                    </VBox.margin>
+                </Label>
+                <Separator maxWidth="30.0">
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+                </Separator>
+                <Label text="Username" />
+                <TextField fx:id="txtUsername" promptText="abekebe" />
+                <Label text="Email">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </Label>
+                <TextField fx:id="txtEmail" promptText="abe@gmail.com" />
+                <Label text="Password">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </Label>
+            <PasswordField fx:id="txtPassword" promptText="********" />
+                <Pane prefHeight="218.0" />
+                <HBox alignment="CENTER_RIGHT">
+                    <children>
+                  <VBox alignment="CENTER_RIGHT">
+                     <children>
+                        <Label fx:id="labelErr" text="Error messages will appear here" textFill="#b51616">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin></Label>
+                              <Button defaultButton="true" mnemonicParsing="false" onAction="#register" prefHeight="25.0" text="Register" />
+                     </children>
+                  </VBox>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+            </padding>
+        </VBox>
+    </children>
+</HBox>

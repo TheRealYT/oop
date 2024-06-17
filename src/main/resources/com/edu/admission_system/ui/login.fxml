@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="3.0" style="-fx-background-color: #eee;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edu.admission_system.ui.LoginController">
+    <children>
+        <Label text="Role" />
+        <ComboBox fx:id="comboRoles" prefHeight="25.0" prefWidth="230.0" promptText="Select User Role" />
+        <Label text="Username">
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+        </Label>
+        <TextField fx:id="textUsername" />
+        <Label text="Password">
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+        </Label>
+        <PasswordField fx:id="txtPsw" />
+        <Button fx:id="btnLogin" defaultButton="true" mnemonicParsing="false" onAction="#login" prefHeight="38.0" prefWidth="230.0" text="Login">
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+        </Button>
+      <VBox alignment="CENTER">
+         <children>
+            <Hyperlink alignment="CENTER" onAction="#register" text="Register" />
+         </children>
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin>
+      </VBox>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>

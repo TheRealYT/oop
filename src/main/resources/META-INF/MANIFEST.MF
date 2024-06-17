@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Main-Class: 
+Class-Path: javafx-base-21.jar javafx-swing-21.jar ikonli-javafx-12.3.1.
+ jar javafx-fxml-21-win.jar javafx-controls-21-win.jar javafx-fxml-21.ja
+ r slf4j-api-1.7.36.jar javafx-swing-21-win.jar javafx-graphics-21-win.j
+ ar formsfx-core-11.6.0.jar javafx-graphics-21.jar javafx-base-21-win.ja
+ r controlsfx-11.1.2.jar ikonli-core-12.3.1.jar javafx-media-21-win.jar 
+ bootstrapfx-core-0.4.0.jar javafx-web-21-win.jar sqlite-jdbc-3.46.0.0.j
+ ar javafx-media-21.jar javafx-controls-21.jar javafx-web-21.jar validat
+ orfx-0.4.0.jar tilesfx-11.48.jar
+

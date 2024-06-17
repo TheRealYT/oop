@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edu.admission_system.ui.ManagerController">
+    <children>
+        <VBox style="-fx-background-color: #eee;">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <children>
+                <Label fx:id="txtName" text="\@AAUAdmin">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="txtInfo" text="Addis Ababa University" />
+            </children>
+        </VBox>
+        <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+            <tabs>
+                <Tab text="Applications">
+                    <content>
+                        <VBox />
+                    </content>
+                </Tab>
+                <Tab text="Departments">
+                    <content>
+                        <VBox alignment="CENTER_RIGHT">
+                            <children>
+                        <Button mnemonicParsing="false" onAction="#addDepartment" text="Add Department">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                                <TableView fx:id="tableDept" VBox.vgrow="ALWAYS">
+                                    <columns>
+                                        <TableColumn prefWidth="75.0" text="Department Name" />
+                                        <TableColumn prefWidth="75.0" text="Available Slots" />
+                                    </columns>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                    </columnResizePolicy>
+                                </TableView>
+                            </children>
+                        </VBox>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</VBox>
