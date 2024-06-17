@@ -163,7 +163,7 @@ public class ManagerController extends StageController {
         }
 
         String title = applications.getStudent().getFullName() + " (EUEE = " + applications.getStudent().getEuee() + ") " + " - " + applications.getApplicationStatus().toString();
-        Label label = new Label("%s\n\n%s".formatted(department.getName(), captionText.toString()));
+        Label label = new Label("%s\nSlots - %s\nStudents - %s\n\n%s".formatted(department.getName(), department.getAvailableSlots(), department.getStudentsCount(applications.getUniversity().getId()), captionText.toString()));
 
         node.setPadding(new Insets(10));
         node.setSpacing(10);

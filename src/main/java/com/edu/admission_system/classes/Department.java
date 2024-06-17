@@ -1,5 +1,6 @@
 package com.edu.admission_system.classes;
 
+import com.edu.admission_system.Status;
 import com.edu.admission_system.db.DB;
 import com.edu.admission_system.interfaces.IProgramListing;
 
@@ -134,5 +135,24 @@ public class Department implements IProgramListing {
     @Override
     public ArrayList<Program> getPrograms() {
         return programs;
+    }
+
+    public int getStudentsCount(int universityId) {
+        int cnt = 0;
+        try {
+            PreparedStatement stmt = DB.stmt("SELECT COUNT(studentId) AS cnt FROM university_department, application WHERE universityId=? AND departmentId=? AND status=? AND university_depId = university_department.id GROUP BY studentId");
+            stmt.setInt(1, universityId);
+            stmt.setInt(2, id);
+            stmt.setInt(3, Status.ACCEPTED.ordinal());
+            ResultSet resultSet = stmt.executeQuery();
+            cnt = resultSet.getInt("cnt");
+            resultSet.close();
+            stmt.close();
+            DB.close();
+        } catch (SQLException e) {
+            DB.handleSqlException(e);
+        }
+
+        return cnt;
     }
 }

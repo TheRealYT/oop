@@ -11,6 +11,10 @@ public class TransferApplication extends Application {
         super(0, student, desiredUniversity);
     }
 
+    public TransferApplication(int id, Student student, University desiredUniversity) {
+        super(id, student, desiredUniversity);
+    }
+
     @Override
     public void submitApplication() {
         try {

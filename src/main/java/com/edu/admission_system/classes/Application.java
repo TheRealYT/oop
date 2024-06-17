@@ -22,6 +22,24 @@ public class Application implements IApplicationStatus, IApplicationSubmission {
         this.university = university;
     }
 
+    public boolean isTransfer() {
+        boolean transfer = false;
+        PreparedStatement stmt = DB.stmt("SELECT transfer FROM application WHERE id=?");
+        try {
+            stmt.setInt(1, id);
+            ResultSet resultSet = stmt.executeQuery();
+            transfer = resultSet.getInt("transfer") == 1;
+
+            resultSet.close();
+            stmt.close();
+            DB.close();
+        } catch (SQLException e) {
+            DB.handleSqlException(e);
+        }
+
+        return transfer;
+    }
+
     @Override
     public Status getApplicationStatus() {
         return status;
