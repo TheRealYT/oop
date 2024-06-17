@@ -1,5 +1,7 @@
 package com.edu.admission_system.ui;
 
+import com.edu.admission_system.Status;
+import com.edu.admission_system.classes.Application;
 import com.edu.admission_system.classes.ApplicationManager;
 import com.edu.admission_system.classes.Department;
 import com.edu.admission_system.classes.Program;
@@ -12,6 +14,7 @@ import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class ManagerController extends StageController {
     public Label txtName;
@@ -20,6 +23,7 @@ public class ManagerController extends StageController {
 
     public Button btnAddReq;
     public Button btnAddPro;
+    public Accordion list;
 
     private ApplicationManager manager;
 
@@ -116,6 +120,12 @@ public class ManagerController extends StageController {
                 }
             }
         });
+
+        list.getPanes().clear();
+        ArrayList<Application> applications = manager.viewIncomingApplications();
+        for (Application application : applications) {
+            addList(application);
+        }
     }
 
     @FXML
@@ -137,5 +147,56 @@ public class ManagerController extends StageController {
     void refresh() {
         tableDept.getItems().clear();
         tableDept.getItems().addAll(manager.getUniversity().getDepartments());
+    }
+
+    private void addList(Application applications) {
+        VBox node = new VBox();
+        StringBuilder captionText = new StringBuilder();
+
+        Department department = new Department(applications.getStudent().getFieldOfStudy().getId(), applications.getUniversity().getId());
+        for (Program program : department.getPrograms()) {
+            captionText.append("• %s\n".formatted(program.getName()));
+
+            for (Program prerequisite : program.getPrerequisites()) {
+                captionText.append("\t→ %s\n".formatted(prerequisite.getName()));
+            }
+        }
+
+        String title = applications.getStudent().getFullName() + " (EUEE = " + applications.getStudent().getEuee() + ") " + " - " + applications.getApplicationStatus().toString();
+        Label label = new Label("%s\n\n%s".formatted(department.getName(), captionText.toString()));
+
+        node.setPadding(new Insets(10));
+        node.setSpacing(10);
+        node.getChildren().add(label);
+
+        if (applications.getApplicationStatus() != Status.REJECTED && applications.getApplicationStatus() != Status.ACCEPTED) {
+            Button btn = new Button("Commit");
+            btn.setOnMouseClicked(mouseEvent -> {
+                ChoiceDialog<String> dialog = new ChoiceDialog<>("Select Response");
+                dialog.setTitle("Update Application");
+                ArrayList<String> strings = new ArrayList<>();
+                for (Status value : Status.values()) {
+                    if (value == Status.RECEIVED || applications.getApplicationStatus() == Status.UNDER_REVIEW && value == Status.UNDER_REVIEW)
+                        continue;
+                    strings.add(value.toString());
+                }
+                strings.add("Auto");
+
+                dialog.getItems().addAll(strings);
+                Optional<String> result = dialog.showAndWait();
+                if (result.isPresent()) {
+                    if (result.get().equals("Auto"))
+                        manager.autoCommitApplication(applications);
+                    else
+                        manager.commitApplication(applications, Status.valueOf(result.get()));
+
+                    applications.saveStatus();
+                    setManager(manager);
+                }
+            });
+            node.getChildren().add(btn);
+        }
+
+        list.getPanes().add(new TitledPane(title, node));
     }
 }

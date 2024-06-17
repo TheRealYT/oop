@@ -24,7 +24,10 @@
             <tabs>
                 <Tab text="Applications">
                     <content>
-                        <VBox />
+                        <VBox>
+                     <children>
+                        <Accordion fx:id="list" />
+                     </children></VBox>
                     </content>
                 </Tab>
                 <Tab text="Departments">

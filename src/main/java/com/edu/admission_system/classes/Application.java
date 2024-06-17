@@ -6,14 +6,18 @@ import com.edu.admission_system.interfaces.IApplicationStatus;
 import com.edu.admission_system.interfaces.IApplicationSubmission;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Application implements IApplicationStatus, IApplicationSubmission {
+    private final int id;
     private final Student student;
     private final University university;
     private Status status;
 
-    public Application(Student student, University university) {
+    public Application(int id, Student student, University university) {
+        this.id = id;
         this.student = student;
         this.university = university;
     }
@@ -51,5 +55,18 @@ public class Application implements IApplicationStatus, IApplicationSubmission {
 
     public Student getStudent() {
         return student;
+    }
+
+    public void saveStatus() {
+        PreparedStatement stmt = DB.stmt("UPDATE application SET status=? WHERE id=?");
+        try {
+            stmt.setInt(1, status.ordinal());
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+            stmt.close();
+            DB.close();
+        } catch (SQLException e) {
+            DB.handleSqlException(e);
+        }
     }
 }

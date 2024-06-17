@@ -91,7 +91,7 @@ public class StudentController extends StageController {
             boolean joined = student.hasJoined();
             Button btn = new Button(joined ? "Request Transfer" : "Apply Now");
             btn.setOnMouseClicked(mouseEvent -> {
-                Application newApplication = joined ? new TransferApplication(student, university) : new Application(student, university);
+                Application newApplication = joined ? new TransferApplication(student, university) : new Application(0, student, university);
                 Optional<ButtonType> buttonType = new Alert(Alert.AlertType.CONFIRMATION, "Continue applying?").showAndWait();
 
                 if (buttonType.isPresent() && buttonType.get() == ButtonType.OK) {

@@ -1,11 +1,14 @@
 package com.edu.admission_system.interfaces;
 
+import com.edu.admission_system.Status;
+import com.edu.admission_system.classes.Application;
+
+import java.util.ArrayList;
+
 public interface IApplicationManagement {
-//    void viewIncomingApplications();
-//
-//    void approveApplication();
-//
-//    void flagApplication();
-//
-//    void communicateWithApplicant();
+    ArrayList<Application> viewIncomingApplications();
+
+    void commitApplication(IApplicationStatus application, Status status);
+
+    void autoCommitApplication(Application application);
 }

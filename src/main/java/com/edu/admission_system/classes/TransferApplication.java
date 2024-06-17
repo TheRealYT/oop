@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class TransferApplication extends Application {
     public TransferApplication(Student student, University desiredUniversity) {
-        super(student, desiredUniversity);
+        super(0, student, desiredUniversity);
     }
 
     @Override

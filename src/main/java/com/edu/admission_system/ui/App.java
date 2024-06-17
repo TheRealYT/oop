@@ -10,9 +10,9 @@ import java.io.IOException;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-//        new ManagerStage(new ApplicationManager(2)).show();
+        new ManagerStage(new ApplicationManager(2)).show();
 //        new LoginStage().show();
-        new StudentStage(new Student(1)).show();
+//        new StudentStage(new Student(1)).show();
     }
 
     public static void main(String[] args) {
