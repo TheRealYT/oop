@@ -149,6 +149,11 @@ public class ManagerController extends StageController {
         tableDept.getItems().addAll(manager.getUniversity().getDepartments());
     }
 
+    @FXML
+    void refreshApps() {
+        setManager(manager);
+    }
+
     private void addList(Application applications) {
         VBox node = new VBox();
         StringBuilder captionText = new StringBuilder();
@@ -186,7 +191,7 @@ public class ManagerController extends StageController {
                 Optional<String> result = dialog.showAndWait();
                 if (result.isPresent()) {
                     if (result.get().equals("Auto"))
-                        manager.autoCommitApplication(applications);
+                        manager.autoCommitApplication(applications, department);
                     else
                         manager.commitApplication(applications, Status.valueOf(result.get()));
 

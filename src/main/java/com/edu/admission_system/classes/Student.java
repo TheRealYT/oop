@@ -124,6 +124,7 @@ public class Student extends User {
 
     public void loadApps() {
         try {
+            applications.clear();
             ArrayList<Integer> appIds = new ArrayList<>();
             ArrayList<Integer> ids = new ArrayList<>();
             ArrayList<Integer> statuses = new ArrayList<>();

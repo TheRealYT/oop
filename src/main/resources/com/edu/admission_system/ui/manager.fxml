@@ -27,6 +27,13 @@
                         <VBox>
                      <children>
                         <Accordion fx:id="list" />
+                        <VBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#refreshApps" text="Refresh" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin></VBox>
                      </children></VBox>
                     </content>
                 </Tab>

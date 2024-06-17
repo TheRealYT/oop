@@ -109,4 +109,9 @@ public class StudentController extends StageController {
     void preview(MouseEvent event) {
         Util.imagePreview(event, stage);
     }
+
+    @FXML
+    void refresh() {
+        setStudent(student);
+    }
 }

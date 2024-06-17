@@ -34,7 +34,9 @@ public class LoginController extends StageController {
         User user = new User(username, psw, role);
         if (user.authorize()) {
             new Alert(Alert.AlertType.INFORMATION, "Login successful").showAndWait();
-            stage.close();
+            textUsername.clear();
+            txtPsw.clear();
+//            stage.close();
 
             if (user.getRole().equals(Constants.ROLE_STU)) {
                 new StudentStage(new Student(user.getUserId())).show();

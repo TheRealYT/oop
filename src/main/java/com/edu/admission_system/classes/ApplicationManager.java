@@ -88,6 +88,11 @@ public class ApplicationManager extends User implements IApplicationManagement {
     }
 
     @Override
-    public void autoCommitApplication(Application application) {
+    public void autoCommitApplication(Application application, Department department) {
+        if (department.getStudentsCount(application.getUniversity().getId()) < department.getAvailableSlots()) {
+            application.setApplicationStatus(Status.ACCEPTED);
+        } else {
+            application.setApplicationStatus(Status.RECEIVED);
+        }
     }
 }
