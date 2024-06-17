@@ -12,12 +12,14 @@ import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class ManagerController extends StageController {
     public Label txtName;
     public Label txtInfo;
     public TableView<Department> tableDept;
+
+    public Button btnAddReq;
+    public Button btnAddPro;
 
     private ApplicationManager manager;
 
@@ -37,15 +39,15 @@ public class ManagerController extends StageController {
         tableDept.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("availableSlots"));
         tableDept.getItems().addAll(manager.getUniversity().getDepartments());
 
-        final VBox container = new VBox();
-        Accordion accordion = new Accordion();
-        container.getChildren().add(accordion);
-        container.setPadding(new Insets(10));
-
         tableDept.setRowFactory(tv -> new TableRow<>() {
             boolean visible = false;
+            final VBox container = new VBox();
 
             {
+                Accordion accordion = new Accordion();
+                container.getChildren().add(accordion);
+                container.setPadding(new Insets(10));
+
                 setOnMouseClicked(mouseEvent -> {
                     visible = !visible;
 
@@ -55,29 +57,36 @@ public class ManagerController extends StageController {
                             return;
 
                         accordion.getPanes().clear();
-                        ArrayList<TitledPane> titledPanes = new ArrayList<>();
-                        for (Program program : department.getPrograms()) {
-                            VBox node = new VBox();
-                            Label label = new Label("");
 
-                            if (program.getPrerequisites().isEmpty()) {
-                                label.setText("No requirements");
-                            } else {
-                                label.setFont(new Font(20));
-                                label.setText("Prerequisites");
+                        if (department.getPrograms().isEmpty()) {
+                            Label label = new Label("No program added");
+                            container.getChildren().clear();
+                            container.getChildren().add(label);
+                        } else {
+                            ArrayList<TitledPane> titledPanes = new ArrayList<>();
+                            for (Program program : department.getPrograms()) {
+                                VBox node = new VBox();
+                                Label label = new Label("");
+
+                                if (program.getPrerequisites().isEmpty()) {
+                                    label.setText("No requirements");
+                                } else {
+                                    label.setFont(new Font(20));
+                                    label.setText("Prerequisites");
+                                }
+
+                                node.getChildren().add(label);
+
+                                ArrayList<Program> prerequisites = program.getPrerequisites();
+                                for (int i = 0; i < prerequisites.size(); i++) {
+                                    Program prerequisite = prerequisites.get(i);
+                                    node.getChildren().add(new Label((i + 1) + ". " + prerequisite.getName()));
+                                }
+
+                                titledPanes.add(new TitledPane(program.getName(), node));
                             }
-
-                            node.getChildren().add(label);
-
-                            ArrayList<Program> prerequisites = program.getPrerequisites();
-                            for (int i = 0; i < prerequisites.size(); i++) {
-                                Program prerequisite = prerequisites.get(i);
-                                node.getChildren().add(new Label((i + 1) + ". " + prerequisite.getName()));
-                            }
-
-                            titledPanes.add(new TitledPane(program.getName(), node));
+                            accordion.getPanes().addAll(titledPanes);
                         }
-                        accordion.getPanes().addAll(titledPanes);
 
                         getChildren().add(container);
                     } else {
@@ -111,15 +120,17 @@ public class ManagerController extends StageController {
 
     @FXML
     void addDepartment() throws IOException {
-        new DepartmentStage().setAsDialog(stage).showAndWait();
+        new DepartmentStage(manager).setAsDialog(stage).showAndWait();
+    }
 
-        Map<String, Integer> all = Department.getAll();
-        ArrayList<Department> departments = manager.getUniversity().getDepartments();
-        for (Department department : departments)
-            all.remove(department.getName());
+    @FXML
+    void addProgram() throws IOException {
+        new DepartmentStage(manager, true).setAsDialog(stage).showAndWait();
+    }
 
-//        if (all.containsKey(department)) {
-//            Department.addFor(all.get(department), manager.getUniversity().getId());
-//        }
+    @FXML
+    void refresh() {
+        tableDept.getItems().clear();
+        tableDept.getItems().addAll(manager.getUniversity().getDepartments());
     }
 }

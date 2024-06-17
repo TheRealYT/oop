@@ -32,6 +32,63 @@ public class Program {
         prerequisiteIds = loadPrerequisites(universityProgramId);
     }
 
+    public static Map<String, Integer> getAll(int universityId) {
+        Map<String, Integer> programs = new HashMap<>();
+        PreparedStatement stmt = DB.stmt("SELECT name, programId FROM program, university_program, university_department WHERE universityId=? AND university_depId=university_department.id");
+        try {
+            stmt.setInt(1, universityId);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                programs.put(resultSet.getString("name"), resultSet.getInt("programId"));
+            }
+
+            resultSet.close();
+            stmt.close();
+            DB.close();
+        } catch (SQLException e) {
+            DB.handleSqlException(e);
+        }
+
+        return programs;
+    }
+
+    public static Map<String, Integer> getAll(int depId, int universityId) {
+        Map<String, Integer> programs = new HashMap<>();
+        PreparedStatement stmt = DB.stmt("SELECT name, programId FROM program, university_program, university_department WHERE departmentId=? AND universityId=? AND university_depId=university_department.id AND program.id=university_program.programId");
+        try {
+            stmt.setInt(1, depId);
+            stmt.setInt(2, universityId);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                programs.put(resultSet.getString("name"), resultSet.getInt("programId"));
+            }
+
+            resultSet.close();
+            stmt.close();
+            DB.close();
+        } catch (SQLException e) {
+            DB.handleSqlException(e);
+        }
+
+        return programs;
+    }
+
+    public static void addFor(int programId, int depId, int universityId) {
+        PreparedStatement stmt = DB.stmt("INSERT INTO university_program (university_depId, programId) VALUES ((SELECT university_department.id AS university_depId FROM university_department WHERE departmentId=? AND universityId=?), ?)");
+        try {
+            stmt.setInt(1, depId);
+            stmt.setInt(2, universityId);
+            stmt.setInt(3, programId);
+            stmt.executeUpdate();
+            stmt.close();
+            DB.close();
+        } catch (SQLException e) {
+            DB.handleSqlException(e);
+        }
+    }
+
     private ArrayList<Integer> loadPrerequisites(int universityProgramId) {
         PreparedStatement stmt = DB.stmt("SELECT university_programId2 FROM university_program, prerequisite WHERE university_program.id=? AND prerequisite.university_programId=?");
         ArrayList<Integer> programIds = new ArrayList<>();

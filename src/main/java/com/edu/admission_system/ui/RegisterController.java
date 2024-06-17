@@ -53,7 +53,7 @@ public class RegisterController extends StageController {
         }
 
         int eueeVal;
-        if (euee.isEmpty() || !euee.matches("^[0-9]+$") || (eueeVal = parseInt(euee)) < 100 || eueeVal > 700) {
+        if (euee.isEmpty() || !euee.matches("^[0-9]+$") || (eueeVal = Util.parseInt(euee)) < 100 || eueeVal > 700) {
             labelErr.setText("Please enter valid EUEE result [100-700]");
             txtEUEE.requestFocus();
             return;
@@ -157,15 +157,6 @@ public class RegisterController extends StageController {
         }
 
         return saved;
-    }
-
-    int parseInt(String val) {
-        try {
-            return Integer.parseInt(val);
-        } catch (Exception ignored) {
-        }
-
-        return 0;
     }
 
     @FXML

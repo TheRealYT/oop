@@ -26,4 +26,13 @@ public class Util {
         stage1.setMaximized(true);
         stage1.showAndWait();
     }
+
+    public static int parseInt(String val) {
+        try {
+            return Integer.parseInt(val);
+        } catch (Exception ignored) {
+        }
+
+        return 0;
+    }
 }

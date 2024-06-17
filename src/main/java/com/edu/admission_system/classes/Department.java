@@ -19,7 +19,7 @@ public class Department {
         this.id = depId;
         loadDep();
         loadAvailableSlots(universityId);
-        programs = Program.getDepPrograms(id, universityId);
+        programs = Program.getDepPrograms(universityId, depId);
     }
 
     public Department(int depId) {
@@ -27,12 +27,12 @@ public class Department {
         loadDep();
     }
 
-    public static void addFor(int depId, int universityId) {
+    public static void addFor(int depId, int universityId, int slots) {
         PreparedStatement stmt = DB.stmt("INSERT INTO university_department (universityId, departmentId, availableSlots) VALUES (?, ?, ?)");
         try {
             stmt.setInt(1, universityId);
             stmt.setInt(2, depId);
-            stmt.setInt(3, 100);
+            stmt.setInt(3, slots);
             stmt.executeUpdate();
             stmt.close();
             DB.close();
@@ -128,5 +128,9 @@ public class Department {
 
     public String getName() {
         return name;
+    }
+
+    public int getId() {
+        return id;
     }
 }

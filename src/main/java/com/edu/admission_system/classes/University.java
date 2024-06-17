@@ -21,13 +21,14 @@ public class University {
 
     public University(int universityId) {
         try {
+            this.id = universityId;
             PreparedStatement stmt = DB.stmt("SELECT * FROM university WHERE id=?");
             stmt.setInt(1, universityId);
 
             ResultSet resultSet = stmt.executeQuery();
 
-            abbr = resultSet.getString("name");
-            name = resultSet.getString("abbr");
+            name = resultSet.getString("name");
+            abbr = resultSet.getString("abbr");
 
             resultSet.close();
             stmt.close();
@@ -35,12 +36,10 @@ public class University {
         } catch (SQLException e) {
             DB.handleSqlException(e);
         }
-
-        departments = Department.getUniversityDep(universityId);
     }
 
     public ArrayList<Department> getDepartments() {
-        return departments;
+        return departments = Department.getUniversityDep(id);
     }
 
     public int getId() {
