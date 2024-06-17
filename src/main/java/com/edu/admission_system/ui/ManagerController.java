@@ -129,6 +129,11 @@ public class ManagerController extends StageController {
     }
 
     @FXML
+    void addReq() throws IOException {
+        new DepartmentStage(manager, 0).setAsDialog(stage).showAndWait();
+    }
+
+    @FXML
     void refresh() {
         tableDept.getItems().clear();
         tableDept.getItems().addAll(manager.getUniversity().getDepartments());

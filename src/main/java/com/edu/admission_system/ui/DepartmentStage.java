@@ -14,4 +14,9 @@ public class DepartmentStage extends AutoLoadStage {
         super("program.fxml", "Add Program");
         ((DepartmentController) controller).setManager(manager, program);
     }
+
+    public DepartmentStage(ApplicationManager manager, int dependentProgram) throws IOException {
+        super("prerequisite.fxml", "Add Prerequisite");
+        ((DepartmentController) controller).setManager(manager, dependentProgram);
+    }
 }

@@ -1,17 +1,17 @@
 package com.edu.admission_system.classes;
 
 import com.edu.admission_system.db.DB;
+import com.edu.admission_system.interfaces.IDepartmentListing;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class University {
+public class University implements IDepartmentListing {
     private int id;
     private String abbr;
     private String name;
-    private ArrayList<Department> departments;
 
     public University(int id, String abbr, String name) {
         this.id = id;
@@ -38,10 +38,6 @@ public class University {
         }
     }
 
-    public ArrayList<Department> getDepartments() {
-        return departments = Department.getUniversityDep(id);
-    }
-
     public int getId() {
         return id;
     }
@@ -54,15 +50,8 @@ public class University {
         return name;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setAbbr(String abbr) {
-        this.abbr = abbr;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public ArrayList<Department> getDepartments() {
+        return Department.getUniversityDep(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.edu.admission_system.classes;
 
 import com.edu.admission_system.db.DB;
+import com.edu.admission_system.interfaces.IProgramListing;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Department {
+public class Department implements IProgramListing {
     private final int id;
     private String name;
     private int availableSlots = -1;
@@ -118,10 +119,6 @@ public class Department {
         return departments;
     }
 
-    public ArrayList<Program> getPrograms() {
-        return programs;
-    }
-
     public int getAvailableSlots() {
         return availableSlots;
     }
@@ -132,5 +129,10 @@ public class Department {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public ArrayList<Program> getPrograms() {
+        return programs;
     }
 }

@@ -15,8 +15,10 @@ import java.util.Map;
 public class DepartmentController extends StageController {
     private Map<String, Integer> deps;
     private Map<String, Integer> programs;
+    private Map<String, Integer> reqs;
     private ApplicationManager manager;
 
+    public ComboBox<String> selectPro2;
     public ComboBox<String> selectPro;
     public ComboBox<String> selectDept;
     public TextField txtSlots;
@@ -36,7 +38,6 @@ public class DepartmentController extends StageController {
         this.manager = manager;
 
         deps = new HashMap<>();
-        programs = new HashMap<>();
 
         Map<String, Integer> allDeps = Department.getAll();
         for (Department department : manager.getUniversity().getDepartments())
@@ -44,9 +45,10 @@ public class DepartmentController extends StageController {
                 deps.put(department.getName(), department.getId());
 
         selectDept.getItems().addAll(deps.keySet());
-        selectPro.getItems().addAll(programs.keySet());
 
         selectDept.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if (newValue == null) return;
+
             programs = Program.getAll(manager.getUniversity().getId());
 
             Map<String, Integer> oldPrograms = Program.getAll(deps.get(newValue), manager.getUniversity().getId());
@@ -56,6 +58,54 @@ public class DepartmentController extends StageController {
 
             selectPro.getItems().clear();
             selectPro.getItems().addAll(programs.keySet());
+        });
+    }
+
+    public void setManager(ApplicationManager manager, int program) {
+        this.manager = manager;
+
+        deps = new HashMap<>();
+
+        Map<String, Integer> allDeps = Department.getAll();
+        for (Department department : manager.getUniversity().getDepartments())
+            if (allDeps.containsKey(department.getName()))
+                deps.put(department.getName(), department.getId());
+
+        selectDept.getItems().addAll(deps.keySet());
+
+        selectDept.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if (newValue == null) return;
+
+            programs = Program.getAll(deps.get(newValue), manager.getUniversity().getId());
+
+            selectPro.getItems().clear();
+            selectPro.getItems().addAll(programs.keySet());
+        });
+
+        selectPro.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if (newValue == null) return;
+
+            reqs = new HashMap<>(programs);
+            reqs.remove(newValue);
+
+            Program selectedProgram = null;
+            int id = programs.get(newValue);
+            for (Department department : manager.getUniversity().getDepartments()) {
+                for (Program departmentProgram : department.getPrograms()) {
+                    if (departmentProgram.getId() == id) {
+                        selectedProgram = departmentProgram;
+                        break;
+                    }
+                }
+            }
+
+            if (selectedProgram != null)
+                for (Program prerequisite : selectedProgram.getPrerequisites())
+                    reqs.remove(prerequisite.getName());
+
+
+            selectPro2.getItems().clear();
+            selectPro2.getItems().addAll(reqs.keySet());
         });
     }
 
@@ -85,6 +135,22 @@ public class DepartmentController extends StageController {
 
         if (deps.containsKey(department) && programs.containsKey(program)) {
             Program.addFor(programs.get(program), deps.get(department), manager.getUniversity().getId());
+        }
+
+        stage.close();
+    }
+
+    @FXML
+    void addReq() {
+        String department = selectDept.getValue();
+        String program = selectPro.getValue();
+        String req = selectPro2.getValue();
+
+        if (department == null || program == null || req == null)
+            return;
+
+        if (deps.containsKey(department) && programs.containsKey(program) && reqs.containsKey(req)) {
+            Program.addPreReq(programs.get(program), reqs.get(req), deps.get(department), manager.getUniversity().getId());
         }
 
         stage.close();

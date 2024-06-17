@@ -33,7 +33,7 @@
                             <children>
                                 <HBox alignment="CENTER_RIGHT" spacing="10.0">
                                     <children>
-                                        <Button fx:id="btnAddReq" mnemonicParsing="false" text="Add Prerequisite" />
+                                        <Button fx:id="btnAddReq" mnemonicParsing="false" onAction="#addReq" text="Add Prerequisite" />
                                         <Button fx:id="btnAddPro" mnemonicParsing="false" onAction="#addProgram" text="Add Program" />
                                         <Button mnemonicParsing="false" onAction="#addDepartment" text="Add Department" />
                                         <Button mnemonicParsing="false" onAction="#refresh" text="Refresh" />
