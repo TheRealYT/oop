@@ -1,6 +1,5 @@
 package com.edu.admission_system.ui;
 
-import com.edu.admission_system.Status;
 import com.edu.admission_system.classes.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
