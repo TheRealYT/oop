@@ -67,7 +67,7 @@ public class DB {
         PreparedStatement stmt = stmt("SELECT id FROM " + role + " WHERE username=? AND password=?");
         try {
             stmt.setString(1, username);
-            stmt.setString(2, password); // TODO: hash
+            stmt.setString(2, password);
 
             id = stmt.executeQuery().getInt("id");
             stmt.close();

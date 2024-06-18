@@ -45,7 +45,7 @@ public class Student extends User {
         try {
             PreparedStatement stmt = DB.stmt("INSERT INTO student (username, password, fullName, email, fieldOfStudy, euee) VALUES (?, ?, ?, ?, ?, ?);");
             stmt.setString(1, username);
-            stmt.setString(2, password); // TODO: hash
+            stmt.setString(2, password);
             stmt.setString(3, fullName);
             stmt.setString(4, email);
             stmt.setInt(5, fieldOfStudy);
